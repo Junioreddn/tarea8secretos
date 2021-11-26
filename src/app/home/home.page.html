@@ -1,0 +1,72 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Home</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Secret Keeper</ion-card-title>
+      <ion-card-subtitle>Completa los campos siguientes:</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+   <form [formGroup]="secretForm" (ngSubmit)="saveSecrets()">
+
+      <ion-item>
+        <ion-label position="floating">Nombre</ion-label>
+        <ion-input type="text" formControlName="nombre"  ></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Fecha</ion-label>
+        <ion-datetime formControlName="fecha" displayFormat="D - MMM - YYYY" ></ion-datetime>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Descripcion</ion-label>
+        <ion-textarea placeholder="Escrbia su secreto" formControlName="descripcion"></ion-textarea>
+      </ion-item>
+      <ion-list>
+
+        <ion-button (click) = "choosePicture()" color="tertiary">Agregar Imagen</ion-button> <ion-button (click) = "takePicture()" color="primary"> Foto</ion-button>
+
+          <img *ngIf="base64Image"  src="{{base64Image}}" alt="Crashed Image">
+
+        <ion-input [(ngModel)]="base64Image" type="hidden" formControlName="foto"></ion-input>
+
+
+        <ion-item>
+          <ion-label position="floating">Audio</ion-label>
+          <ion-button (click)="begin()" color="success">Grabar</ion-button>
+
+          <ion-button (click)="pause()" color="danger">Stop</ion-button>
+          <ion-button (click)="deleted()" color="danger">DELETE</ion-button>
+          <ion-label>
+            {{estado}}
+          </ion-label>
+
+        </ion-item>
+        <audio style="margin: 0 auto; display: table;" *ngIf="terminar" controls>
+          <source [src]="getAudioContent(terminar.recordDataBase64)">
+              Tu navegador no soporta audio HTML5.
+        </audio>
+      </ion-list>
+
+      <ion-input  [(ngModel)]="audiostorage"  type="hidden" formControlName="audio"></ion-input>
+
+      <ion-button type="submit" color="success">Guardar</ion-button>
+
+      <ion-button (click)="cancelar()" color="danger">Cancelar</ion-button>
+    </form>
+
+    </ion-card-content>
+
+
+
+  </ion-card>
+
+</ion-content>

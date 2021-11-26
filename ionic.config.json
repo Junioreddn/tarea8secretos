@@ -1,0 +1,7 @@
+{
+  "name": "tarea8secretos",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
